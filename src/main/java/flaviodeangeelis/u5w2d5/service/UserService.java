@@ -9,11 +9,14 @@ import flaviodeangeelis.u5w2d5.payload.NewUserDTO;
 import flaviodeangeelis.u5w2d5.payload.UpdateUserDTO;
 import flaviodeangeelis.u5w2d5.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.List;
 
 @Service
 public class UserService {
@@ -22,8 +25,9 @@ public class UserService {
     @Autowired
     private Cloudinary cloudinary;
 
-    public List<User> getUsers() {
-        return userRepository.findAll();
+    public Page<User> getUsers(int page, int size, String orderBy) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by(orderBy));
+        return userRepository.findAll(pageable);
     }
 
     public User findById(int id) {

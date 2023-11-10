@@ -8,11 +8,10 @@ import flaviodeangeelis.u5w2d5.payload.UpdateDeviceStatusDTO;
 import flaviodeangeelis.u5w2d5.payload.UpdateDeviceUserDTO;
 import flaviodeangeelis.u5w2d5.service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/devices")
@@ -21,8 +20,10 @@ public class DeviceController {
     private DeviceService deviceService;
 
     @GetMapping("")
-    public List<Device> getDevices() {
-        return deviceService.getDevices();
+    public Page<Device> getDevices(@RequestParam(defaultValue = "0") int page,
+                                   @RequestParam(defaultValue = "10") int size,
+                                   @RequestParam(defaultValue = "id") String orderBy) {
+        return deviceService.getDevices(page, size, orderBy);
     }
 
     @GetMapping("/{id}")
