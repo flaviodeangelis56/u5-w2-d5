@@ -4,6 +4,7 @@ import flaviodeangeelis.u5w2d5.entities.User;
 import flaviodeangeelis.u5w2d5.exception.BadRequestException;
 import flaviodeangeelis.u5w2d5.exception.NotFoundException;
 import flaviodeangeelis.u5w2d5.payload.NewUserDTO;
+import flaviodeangeelis.u5w2d5.payload.UpdateUserDTO;
 import flaviodeangeelis.u5w2d5.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -47,9 +48,13 @@ public class UserController {
 
     }
 
-    @PutMapping("/{id}")
-    public User findByIdAndUpdate(@PathVariable int id, @RequestBody User body) {
-        return usersService.findByIdAndUpdate(id, body);
+    @PutMapping("/update/{id}")
+    public User findByIdAndUpdate(@PathVariable int id, @RequestBody @Validated UpdateUserDTO body, BindingResult validation) {
+        if (validation.hasErrors()) {
+            throw new BadRequestException(validation.getAllErrors());
+        } else {
+            return usersService.findByIdAndUpdate(id, body);
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -58,7 +63,7 @@ public class UserController {
         usersService.findByIdAndDelete(id);
     }
 
-    @PutMapping("/updateImg/{id}")
+    @PutMapping("/update/img/{id}")
     public String uploadImg(@RequestParam("avatar") MultipartFile file, @PathVariable int id) throws IOException {
         User found = usersService.findById(id);
         return usersService.uploadImg(file, id, found);

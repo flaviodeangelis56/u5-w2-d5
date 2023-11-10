@@ -6,6 +6,7 @@ import flaviodeangeelis.u5w2d5.entities.User;
 import flaviodeangeelis.u5w2d5.exception.BadRequestException;
 import flaviodeangeelis.u5w2d5.exception.NotFoundException;
 import flaviodeangeelis.u5w2d5.payload.NewUserDTO;
+import flaviodeangeelis.u5w2d5.payload.UpdateUserDTO;
 import flaviodeangeelis.u5w2d5.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,11 +31,9 @@ public class UserService {
     }
 
     public User save(NewUserDTO body) throws IOException {
-
         userRepository.findByEmail(body.email()).ifPresent(user -> {
             throw new BadRequestException("L'email " + user.getEmail() + " è già utilizzata!");
         });
-
         User newUser = new User();
         newUser.setUsername(body.username());
         newUser.setName(body.name());
@@ -44,12 +43,14 @@ public class UserService {
         return userRepository.save(newUser);
     }
 
-    public User findByIdAndUpdate(int id, User body) {
+    public User findByIdAndUpdate(int id, UpdateUserDTO body) {
         User found = userRepository.findById(id).orElseThrow(() -> new NotFoundException(id));
-        found.setUsername(body.getUsername());
-        found.setName(body.getName());
-        found.setEmail(body.getEmail());
-        found.setProfileImg(body.getProfileImg());
+
+        found.setUsername(body.username());
+        found.setName(body.name());
+        found.setSurname(body.surname());
+        found.setEmail(body.email());
+        found.setProfileImg(found.getProfileImg());
         return userRepository.save(found);
     }
 
