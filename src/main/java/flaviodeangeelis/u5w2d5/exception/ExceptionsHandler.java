@@ -35,6 +35,6 @@ public class ExceptionsHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorsResponseDTO handleGeneric(Exception e) {
         e.printStackTrace();
-        return new ErrorsResponseDTO("Problema lato server...giuro che lo risolveremo presto", new Date());
+        return new ErrorsResponseDTO("Problema lato server, contatta lo sviluppatore per risolvere!!", new Date());
     }
 }

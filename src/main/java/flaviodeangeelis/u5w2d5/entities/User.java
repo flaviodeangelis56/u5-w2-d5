@@ -1,6 +1,9 @@
 package flaviodeangeelis.u5w2d5.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.*;
 
 @Entity
@@ -18,6 +21,4 @@ public class User {
     private String surname;
     private String email;
     private String profileImg;
-    @OneToOne(mappedBy = "user")
-    private Device device;
 }

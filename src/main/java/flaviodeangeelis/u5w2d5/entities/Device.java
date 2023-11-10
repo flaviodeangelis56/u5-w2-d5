@@ -1,15 +1,14 @@
 package flaviodeangeelis.u5w2d5.entities;
 
-import flaviodeangelis.u6w2d2.enumType.DeviceStatus;
-import flaviodeangelis.u6w2d2.enumType.DeviceType;
+
+import flaviodeangeelis.u5w2d5.enumType.DeviceStatus;
+import flaviodeangeelis.u5w2d5.enumType.DeviceType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

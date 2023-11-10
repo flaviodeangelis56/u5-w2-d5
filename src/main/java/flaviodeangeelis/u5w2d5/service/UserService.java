@@ -41,8 +41,7 @@ public class UserService {
         newUser.setSurname(body.surname());
         newUser.setEmail(body.email());
         newUser.setProfileImg("...");
-        User savedUser = userRepository.save(newUser);
-        return savedUser;
+        return userRepository.save(newUser);
     }
 
     public User findByIdAndUpdate(int id, User body) {
