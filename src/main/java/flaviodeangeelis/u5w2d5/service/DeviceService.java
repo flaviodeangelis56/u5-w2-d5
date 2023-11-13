@@ -56,7 +56,7 @@ public class DeviceService {
             newDevice.setUser(null);
             return deviceRepository.save(newDevice);
         } else {
-            throw new BadRequestException("valore inserito non valido o non di tipo stringa");
+            throw new BadRequestException("valore inserito non valido o non di tipo stringa! Scegli tra SMARTPHONE,TABLET,LAPTOP");
         }
     }
 
@@ -90,7 +90,7 @@ public class DeviceService {
         } else if (body.deviceStatus().trim().toUpperCase().contains("ASSEGNATO")) {
             throw new BadRequestException("per assegnare un dispositivo cambia il suo utente e verrà fatto in automatico");
         } else {
-            throw new BadRequestException("valore inserito non valido o non di tipo stringa");
+            throw new BadRequestException("valore inserito non valido o non di tipo stringa! Scegli tra DISPONIBILE,MANUTENZIONE,DISMESSO");
         }
 
     }
@@ -108,7 +108,7 @@ public class DeviceService {
         } else if (found.getDeviceStatus() == DeviceStatus.ASSEGNATO) {
             throw new BadRequestException("dispositivo già assegnato se vuoi cambiare utente rendilo prima disponibile");
         } else {
-            throw new BadRequestException("l'utente ha già un dispositivo per le politiche della azienda non può averne più di uno");
+            throw new BadRequestException("l'utente ha già un dispositivo, per le politiche della azienda non può averne più di uno");
         }
 
 
